@@ -1,9 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from '../components/Card';
 import { Formik } from 'formik';
 import * as Yup from 'yup'
+import {getRestaurants} from '../utils/api/restaurantsApi';
 
 export default function SearchPage() {
+
+    const [state, setState] = useState({
+        listOfRestaurants: [],
+        hasSearched: false,
+        totalEntries: 0,
+        perPage: 0,
+        currentPage: 1,
+    });
+
+    const getSearchResults = (city, name, address) => {
+
+        getRestaurants(city, name, address).then(response => {
+
+            setState(prevState => ({
+                ...prevState,
+                listOfRestaurants: response.data.restaurants,
+                totalEntries: response.data.total_entries,
+                perPage: response.data.per_page,
+                currentPage: response.data.current_page,
+                hasSearched: true
+            }))
+
+        })
+
+    }
+
+
     return (
         <div className='container'>
             <div className="flex-column space-between">
@@ -20,8 +48,11 @@ export default function SearchPage() {
                         })}
                         onSubmit={(values, { setSubmitting }) => {
                             setTimeout(() => {
-                                alert(JSON.stringify(values, null, 2));
-                                setSubmitting(false);
+                        
+                                getSearchResults(values.searchCityText, values.searchNameText, values.searchAddressText);
+                                setSubmitting(false)
+
+
                             }, 400);
                         }}
                     >
@@ -79,6 +110,15 @@ export default function SearchPage() {
                             )}
                     </Formik>
                 </Card>
+                <div className='flex-wrap space-evenly restraunt-row flex-row'>
+                    {state.listOfRestaurants.map(item => {
+                        return (
+                            <div className={'card col is-sm-12 is-md-4 is-lg-4'} key={item.id}>
+                                {item.name}
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )
