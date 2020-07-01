@@ -248,7 +248,7 @@ body {
   }
 
   .form-input:focus {
-    border-color: #FF7F50; 
+    border-color: #1EAEDB; 
     box-shadow: 0 0 0 .1rem rgba(87, 85, 217, .2);
   }
 
@@ -281,6 +281,31 @@ body {
     vertical-align: middle;
     width: auto;
   }
+
+  
+.form-input-text {
+    color: #bcc3ce;
+    font-size: .7rem;
+    margin-top: .2rem;
+  }
+
+.is-valid .form-input {
+    border-color: #32b643;
+  }
+
+.is-valid, .form-input-text {
+  color: #32b643;
+}
+
+.is-invalid + .form-input {
+    border-color: #e85600;
+}
+
+.is-invalid, .form-input-text {
+    color: #e85600;
+  }
+
+
 
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -341,6 +366,14 @@ input[type="button"].is-button-primary:focus {
   color: #FFF;
   background-color: #FF7F50;
   border-color: #FF7F50; }
+
+.is-button[disabled],
+.is-button:disabled,
+.is-button.disabled {
+  cursor: default;
+  opacity: .5;
+  pointer-events: none;
+}
 
   
 /* Spacing
