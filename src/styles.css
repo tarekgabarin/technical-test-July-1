@@ -1,0 +1,246 @@
+
+.test-1 {
+    background-color: #FF7F50;
+}
+
+.test-2 {
+    background-color: aqua;
+}
+
+/* Base Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.5em;
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
+}
+
+/* Flex
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    display: -ms-flexbox;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    display: -ms-flexbox;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.align-content-center {
+    align-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+
+/* Grid
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+/* @media only screen and (max-width : 320px) {
+    
+    } */
+
+    .col-row:first-child, .col:first-child {
+        margin-left: 0;
+    }
+    .is-1.col {
+        width: 8.33333333%;
+    }
+    .is-2.col {
+        width: 16.66666667%;
+    }
+    .is-3.col {
+        width: 25%;
+    }
+    .is-4.col {
+        width: 33.33333333%;
+    }
+    .is-5.col {
+        width: 41.66666667%;
+    }
+    .is-6.col {
+        width: 50%;
+    }
+    .is-7.col {
+        width: 58.33333333%;
+    }
+    .is-8.col {
+        width: 66.66666667%;
+    }
+    .is-9.col {
+        width: 75%;
+    }
+    .is-10.col {
+        width: 83.33333333%;
+    }
+    .is-11.col {
+        width: 91.66666667%;
+    }
+    .is-12.col {
+        width: 100%;
+    }
+
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2.0rem;
+    box-sizing: border-box;
+}
+
+
+/* Forms
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea, select {
+    height: 38px;
+    padding: 6px 10px;
+    /* The 6px vertically centers text on FF, ignored by Webkit */
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="text"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+    border: 1px solid #FF7F50;
+    outline: 0;
+}
+
+/* Buttons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.is-button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+
+.is-button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.is-button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.is-button.is-button-primary,
+button.is-button-primary,
+input[type="submit"].is-button-primary,
+input[type="reset"].is-button-primary,
+input[type="button"].is-button-primary {
+  color: #FFF;
+  background-color: #FF7F50;
+  border-color: #FF7F50; }
+.is-button.is-button-primary:hover,
+button.is-button-primary:hover,
+input[type="submit"].is-button-primary:hover,
+input[type="reset"].is-button-primary:hover,
+input[type="button"].is-button-primary:hover,
+.is-button.is-button-primary:focus,
+button.is-button-primary:focus,
+input[type="submit"].is-button-primary:focus,
+input[type="reset"].is-button-primary:focus,
+input[type="button"].is-button-primary:focus {
+  color: #FFF;
+  background-color: #FF7F50;
+  border-color: #FF7F50; }
+
+  
+/* Spacing
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+button,
+.is-button {
+  margin-bottom: 1rem; }
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 2.5rem; }
+
+  /* Components
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.card {
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(134, 140, 151, 0.24);
+    background-color: #FFFFFF;
+}
+
+.card-header {
+    font-size: 1.50rem;
+    padding: 1rem;
+    border-bottom-width: 1px;
+    border-bottom-color: 1px solid rgba(134, 140, 151, 0.24);
+}

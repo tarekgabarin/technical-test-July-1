@@ -1,0 +1,95 @@
+# Combined gitignores for eslint
+.eslintignore
+.eslintrc.js
+
+# dependencies
+node_modules
+
+# production
+dist
+.out
+
+#development
+build
+
+#Locales
+locales
+
+# misc
+.DS_Store
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.testing.env
+.deployment.env
+
+.notes
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.cache
+
+# JetBrains IDE files
+.idea
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+node_modules/
+
+# Typescript v1 declaration files
+typings/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variable files
+.env*
+
+# gatsby files
+.cache/
+public
+
+# Mac files
+.DS_Store
+
+# Yarn
+yarn-error.log
+.pnp/
+.pnp.js
+# Yarn Integrity file
+.yarn-integrity
