@@ -9,6 +9,8 @@ import _ from 'lodash'
 import { CSSTransition } from 'react-transition-group'
 import { usePrevious } from '../utils/customHooks'
 import 'react-lazy-load-image-component/src/effects/blur.css'
+import { useDispatch} from 'react-redux'
+import {setRestaurantsAsync} from '../state/slices/restarauntsSlice'
 
 function RestrauntCardsRow(props) {
 
@@ -89,6 +91,8 @@ function RestrauntCardImage(props) {
 
 export default function SearchPage() {
 
+    const dispatch = useDispatch()
+
     const [state, setState] = useState({
         listOfRestaurants: [],
         hasSearched: false,
@@ -109,6 +113,8 @@ export default function SearchPage() {
         getRestaurants(city, name, address).then(response => {
 
             const totalPages = Math.ceil(response.data.total_entries / response.data.per_page)
+
+            dispatch(setRestaurantsAsync(response.data.restaurants));
 
             setState(prevState => ({
                 ...prevState,
