@@ -27,3 +27,5 @@ export const setRestaurantsAsync = (listOfRestaurants) => (dispatch) => {
 }
 
 export const selectRestaurants = (state) => state.restaurants.listOfRestaurants
+
+export default slice.reducer

@@ -1,7 +1,7 @@
 module.exports = {
     extends: ['eslint:recommended', 'plugin:react/recommended'],
     parser: 'babel-eslint',
-    env: { browser: true, es6: true, node: true, commonjs: true },
+    env: { browser: true, es6: true, node: true, commonjs: true, "jest/globals": true },
     parserOptions: {
       ecmaVersion: 2018,
       sourceType: 'module',
@@ -14,7 +14,7 @@ module.exports = {
         version: 'detect',
       },
     },
-    plugins: ['react-hooks', 'eslint-plugin-react'],
+    plugins: ['react-hooks', 'eslint-plugin-react', "jest"],
     rules: {
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
