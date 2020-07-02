@@ -3,6 +3,23 @@ import Card from '../components/Card';
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import {getRestaurants} from '../utils/api/restaurantsApi';
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
+
+function RestrauntCardImage(props) {
+    return (
+      <LazyLoadImage
+        effect="blur"
+        src={props.imageUrl}
+        style={{
+          objectFit: 'cover',
+          height: '16.875em',
+          width: '100%',
+        }}
+      />
+    )
+  }
+
 
 export default function SearchPage() {
 
@@ -110,14 +127,33 @@ export default function SearchPage() {
                             )}
                     </Formik>
                 </Card>
-                <div className='flex-wrap space-evenly restraunt-row flex-row'>
+                <div className='flex-wrap space-around restraunt-row flex-row'>
                     {state.listOfRestaurants.map(item => {
                         return (
-                            <div className={'card col is-sm-12 is-md-4 is-lg-4'} key={item.id}>
-                                {item.name}
+                            <div className={'card restraunt-margins  col is-sm-12 is-md-3 is-lg-3'} key={item.id}>
+                                <div className="flex-column">
+                                    <div className='restraunt-title'>
+                                        {item.name}
+                                    </div>
+                                    <RestrauntCardImage imageUrl={item.image_url}  />
+                                    <div  className='restraunt-text-padding'>
+                                        {item.address}
+                                    </div>
+                                    <div  className='restraunt-text-padding'>
+                                        Price: {item.price}
+                                    </div>
+                                    <div  className='restraunt-text-padding restraunt-bottom-padding'>
+                                        Phone: {item.phone}
+                                    </div>
+                                </div>
                             </div>
                         )
                     })}
+
+                    {(state.hasSearched && state.listOfRestaurants.length === 0) && (
+                        <h1>No Results Found</h1>
+                    )}
+
                 </div>
             </div>
         </div>
