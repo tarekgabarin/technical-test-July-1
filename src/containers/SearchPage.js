@@ -4,7 +4,73 @@ import { Formik } from 'formik';
 import * as Yup from 'yup'
 import {getRestaurants} from '../utils/api/restaurantsApi';
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import ReactPaginate from 'react-paginate'
+import _ from 'lodash'
+import { CSSTransition } from 'react-transition-group'
+import { usePrevious } from '../utils/customHooks'
 import 'react-lazy-load-image-component/src/effects/blur.css'
+
+function RestrauntCardsRow(props) {
+
+    const prevProps = usePrevious(props)
+
+    const inBoolean =
+    prevProps !== undefined
+      ? _.isEqual(prevProps.currentPage, props.currentPage) === false
+      : true
+
+    return (
+
+        <CSSTransition
+            appear
+            in={inBoolean}
+            timeout={{
+                appear: 500,
+                enter: 300,
+                exit: 500,
+            }}
+            classNames="fade"
+        >
+            <div className='flex-wrap space-evenly restraunt-row flex-row'>
+                {props.listOfRestaurants.map(item => {
+                    return (
+                        <div className={'card restraunt-margins  col is-sm-12 is-md-3 is-lg-3'} key={item.id}>
+                            <div className="flex-column">
+
+                                {item.name.length > 19 ? (
+                                <div className='restraunt-title-long'>
+                                    {item.name}
+                                </div>
+                                ) : (
+                                <div className='restraunt-title-short'>
+                                    {item.name}
+                                </div>
+                                )}
+
+                                <RestrauntCardImage imageUrl={item.image_url} />
+                                <div className='restraunt-text-padding'>
+                                    {item.address}
+                                </div>
+                                <div className='restraunt-text-padding'>
+                                    {props.tiersObj[item.price]}
+                                </div>
+                                <div className='restraunt-text-padding restraunt-bottom-padding'>
+                                Phone: {item.phone}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+
+
+
+            </div>
+
+        </CSSTransition>
+    )
+
+}
+
 
 function RestrauntCardImage(props) {
     return (
@@ -27,26 +93,67 @@ export default function SearchPage() {
         listOfRestaurants: [],
         hasSearched: false,
         totalEntries: 0,
+        totalPages: 0,
         perPage: 0,
         currentPage: 1,
+        tiersObj: {
+            1: 'Low-Tier',
+            2: 'Mid-Tier',
+            3: 'High-Tier',
+            4: 'Snazzy'
+        },
     });
 
     const getSearchResults = (city, name, address) => {
 
         getRestaurants(city, name, address).then(response => {
 
+            const totalPages = Math.ceil(response.data.total_entries / response.data.per_page)
+
             setState(prevState => ({
                 ...prevState,
                 listOfRestaurants: response.data.restaurants,
+                city,
+                name,
+                address,
                 totalEntries: response.data.total_entries,
                 perPage: response.data.per_page,
                 currentPage: response.data.current_page,
+                totalPages,
                 hasSearched: true
             }))
 
         })
 
     }
+
+    function handlePageClick(data) {
+        if (data.selected === 0 && state.hasSearched) {
+          const firstIndex = data.selected + 1
+
+          getRestaurants(state.city, state.name, state.address).then(response => {
+
+            setState((prevState) => ({
+                ...prevState,
+                currentPage: firstIndex,
+                listOfRestaurants: response.data.restaurants,
+              }))
+          })
+
+          
+        } else if (data.selected !== 0 && state.hasSearched) {
+          const selectedIndex = data.selected + 1
+
+          getRestaurants(state.city, state.name, state.address, selectedIndex).then(response => {
+
+            setState((prevState) => ({
+                ...prevState,
+                currentPage: selectedIndex,
+                listOfRestaurants: response.data.restaurants,
+              }))
+          })
+        }
+      }
 
 
     return (
@@ -118,8 +225,6 @@ export default function SearchPage() {
                                              </button>
                                             )}
 
-                                            
-
                                         </div>
 
                                     </div>
@@ -127,34 +232,33 @@ export default function SearchPage() {
                             )}
                     </Formik>
                 </Card>
-                <div className='flex-wrap space-around restraunt-row flex-row'>
-                    {state.listOfRestaurants.map(item => {
-                        return (
-                            <div className={'card restraunt-margins  col is-sm-12 is-md-3 is-lg-3'} key={item.id}>
-                                <div className="flex-column">
-                                    <div className='restraunt-title'>
-                                        {item.name}
-                                    </div>
-                                    <RestrauntCardImage imageUrl={item.image_url}  />
-                                    <div  className='restraunt-text-padding'>
-                                        {item.address}
-                                    </div>
-                                    <div  className='restraunt-text-padding'>
-                                        Price: {item.price}
-                                    </div>
-                                    <div  className='restraunt-text-padding restraunt-bottom-padding'>
-                                        Phone: {item.phone}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
+                <RestrauntCardsRow tiersObj={state.tiersObj} currentPage={state.currentPage} listOfRestaurants={state.listOfRestaurants} />
 
-                    {(state.hasSearched && state.listOfRestaurants.length === 0) && (
+                {(state.hasSearched && state.listOfRestaurants.length === 0) && (
+
+                        <div className='flex-row justify-center'>
                         <h1>No Results Found</h1>
+                        </div>
+
+                        
                     )}
 
-                </div>
+                    {(state.listOfRestaurants.length !== 0) && (
+                        <div className='flex-row justify-center'>
+                             <ReactPaginate
+                        initialPage={0}
+                        pageCount={state.totalPages}
+                        pageRangeDisplayed={10}
+                        marginPagesDisplayed={10}
+                        containerClassName={'pagination'}
+                        forcePage={state.currentPage - 1}
+                        activeClassName={'active'}
+                        onPageChange={handlePageClick}
+                      />
+
+                        </div>
+                       
+                    )}
             </div>
         </div>
     )
